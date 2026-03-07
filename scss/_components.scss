@@ -1,0 +1,77 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+// Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-lg;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background-color $transition-base, color $transition-base, transform $transition-fast;
+  border-radius: 2px;
+
+  &--primary {
+    background-color: $color-bg-dark;
+    color: $color-white;
+
+    &:hover {
+      background-color: lighten($color-bg-dark, 10%);
+      color: $color-accent-soft;
+    }
+  }
+
+  &--secondary {
+    background-color: $color-surface;
+    color: $color-bg-dark;
+    border: 2px solid $color-accent-soft;
+
+    &:hover {
+      background-color: $color-bg-dark;
+      color: $color-accent-light;
+      border-color: $color-bg-dark;
+    }
+  }
+
+  &--accent {
+    background-color: $color-accent;
+    color: $color-white;
+
+    &:hover {
+      background-color: darken($color-accent, 8%);
+      color: $color-white;
+    }
+  }
+}
+
+.container {
+  @include container;
+}
+
+// Section
+.section {
+  padding: $spacing-3xl 0;
+
+  @include respond-to(lg) {
+    padding: ($spacing-3xl * 1.5) 0;
+  }
+
+  &--dark {
+    background-color: $color-bg-dark;
+    color: $color-white;
+  }
+}
+
+.section__title {
+  font-size: $font-size-3xl;
+  text-align: center;
+  margin-bottom: $spacing-2xl;
+  color: $color-text;
+
+  @include respond-to(md) {
+    font-size: $font-size-4xl;
+  }
+}

@@ -1,0 +1,414 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+// ========== Layout ==========
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 260px;
+  min-width: 260px;
+  min-height: 100vh;
+  background: $color-bg-dark;
+  color: $color-white;
+  padding: $spacing-xl $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08);
+
+  &__brand {
+    font-family: $font-display;
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-2xl;
+    padding-bottom: $spacing-lg;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    color: $color-white;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    flex: 1;
+  }
+
+  &__link {
+    display: block;
+    padding: $spacing-md $spacing-lg;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    border-radius: 6px;
+    transition: background $transition-base, color $transition-base;
+
+    &:hover {
+      color: $color-white;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    &--active {
+      background: rgba(255, 255, 255, 0.18);
+      color: $color-white;
+    }
+  }
+
+  &__footer {
+    padding-top: $spacing-lg;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+    .admin-sidebar__link {
+      color: $color-accent-light;
+      font-size: $font-size-xs;
+    }
+  }
+}
+
+.admin-main {
+  flex: 1;
+  padding: $spacing-2xl $spacing-3xl;
+  background: $color-bg-warm;
+  overflow: auto;
+  min-height: 100vh;
+}
+
+// ========== Page shell (all admin pages) ==========
+.admin-page {
+  max-width: 960px;
+  margin: 0 auto;
+
+  &__title {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-normal;
+    margin-bottom: $spacing-xs;
+    color: $color-text;
+  }
+
+  &__subtitle {
+    color: $color-text-muted;
+    margin-bottom: $spacing-2xl;
+    font-size: $font-size-base;
+    line-height: 1.5;
+  }
+}
+
+// ========== Dashboard cards ==========
+.admin-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: $spacing-lg;
+}
+
+.admin-card {
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-xl;
+  background: $color-surface;
+  border-radius: 10px;
+  border: 1px solid $color-border;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow $transition-base, transform $transition-fast, border-color $transition-fast;
+
+  &:hover {
+    box-shadow: 0 8px 24px rgba(45, 36, 32, 0.12);
+    transform: translateY(-2px);
+    border-color: $color-accent-soft;
+  }
+
+  &__number {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $color-accent;
+  }
+
+  &__label {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    margin-top: $spacing-sm;
+  }
+}
+
+// ========== Forms (Home, Footer, Wedding Card) ==========
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  max-width: 520px;
+  background: $color-surface;
+  padding: $spacing-2xl;
+  border-radius: 10px;
+  border: 1px solid $color-border;
+  box-shadow: 0 2px 12px rgba(45, 36, 32, 0.06);
+
+  &__hint {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    margin: 0 0 $spacing-md;
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+
+    &--inline {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: $spacing-md;
+
+      input {
+        flex: 1;
+        min-width: 140px;
+      }
+    }
+
+    label {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      color: $color-text;
+    }
+
+    input,
+    textarea {
+      padding: $spacing-sm $spacing-md;
+      border: 1px solid $color-border;
+      border-radius: 6px;
+      font: inherit;
+      background: $color-bg;
+
+      &:focus {
+        outline: none;
+        border-color: $color-accent;
+        box-shadow: 0 0 0 2px rgba(166, 124, 82, 0.15);
+      }
+    }
+  }
+
+  &__error {
+    padding: $spacing-md;
+    background: #e8d5d5;
+    color: #5c2424;
+    border-radius: 6px;
+    font-size: $font-size-sm;
+    border: 1px solid #d4b0b0;
+  }
+
+  .btn {
+    align-self: flex-start;
+  }
+}
+
+// ========== RSVP table ==========
+.admin-table-wrap {
+  overflow-x: auto;
+  background: $color-surface;
+  border-radius: 10px;
+  border: 1px solid $color-border;
+  box-shadow: 0 2px 12px rgba(45, 36, 32, 0.06);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-sm;
+
+  th,
+  td {
+    padding: $spacing-md $spacing-lg;
+    text-align: left;
+    border-bottom: 1px solid $color-border;
+  }
+
+  th {
+    font-weight: $font-weight-semibold;
+    background: $color-bg;
+    color: $color-text;
+  }
+
+  tbody tr:hover {
+    background: rgba(245, 237, 228, 0.5);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.admin-table__empty {
+  padding: $spacing-3xl;
+  text-align: center;
+  color: $color-text-muted;
+  font-size: $font-size-base;
+}
+
+// ========== Login ==========
+.admin-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, $color-bg-warm 0%, $color-bg 100%);
+  padding: $spacing-xl;
+}
+
+.admin-login__box {
+  width: 100%;
+  max-width: 400px;
+  padding: $spacing-3xl;
+  background: $color-surface;
+  border-radius: 12px;
+  border: 1px solid $color-border;
+  box-shadow: 0 8px 32px rgba(45, 36, 32, 0.15);
+}
+
+.admin-login__title {
+  font-size: $font-size-2xl;
+  font-family: $font-display;
+  margin-bottom: $spacing-xs;
+  text-align: center;
+  color: $color-text;
+}
+
+.admin-login__subtitle {
+  text-align: center;
+  color: $color-text-muted;
+  margin-bottom: $spacing-xl;
+  font-size: $font-size-sm;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+
+    label {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+      color: $color-text;
+    }
+
+    input {
+      padding: $spacing-md;
+      border: 1px solid $color-border;
+      border-radius: 6px;
+      font: inherit;
+
+      &:focus {
+        outline: none;
+        border-color: $color-accent;
+      }
+    }
+  }
+
+  &__error {
+    padding: $spacing-md;
+    background: #fef2f2;
+    color: #991b1b;
+    border-radius: 6px;
+    font-size: $font-size-sm;
+    border: 1px solid #fecaca;
+  }
+}
+
+// ========== Who Are We admin ==========
+.who-are-we-admin {
+  max-width: 520px;
+
+  &__tabs {
+    display: flex;
+    gap: $spacing-md;
+    margin-bottom: $spacing-xl;
+
+    .btn {
+      flex: 1;
+    }
+  }
+}
+
+// ========== Gallery manager ==========
+.gallery-manager {
+  background: $color-surface;
+  padding: $spacing-2xl;
+  border-radius: 10px;
+  border: 1px solid $color-border;
+  box-shadow: 0 2px 12px rgba(45, 36, 32, 0.04);
+
+  &__toolbar {
+    margin-bottom: $spacing-xl;
+  }
+
+  &__error {
+    padding: $spacing-md;
+    background: #e8d5d5;
+    color: #5c2424;
+    border-radius: 6px;
+    margin-bottom: $spacing-md;
+    font-size: $font-size-sm;
+    border: 1px solid #d4b0b0;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: $spacing-lg;
+  }
+
+  &__item {
+    background: $color-bg-warm;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: $spacing-md;
+  }
+
+  &__thumb {
+    position: relative;
+    aspect-ratio: 1;
+    margin-bottom: $spacing-md;
+    border-radius: 6px;
+    overflow: hidden;
+    background: $color-border;
+  }
+
+  &__caption {
+    width: 100%;
+    padding: $spacing-sm $spacing-md;
+    font-size: $font-size-xs;
+    border: 1px solid $color-border;
+    border-radius: 6px;
+    margin-bottom: $spacing-md;
+    background: $color-bg;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-sm;
+    flex-wrap: wrap;
+  }
+}
+
+// ========== Button modifiers (admin) ==========
+.btn--sm {
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-xs;
+}
+
+.btn--active {
+  background: $color-accent !important;
+  color: $color-white !important;
+  border-color: $color-accent !important;
+}
+
+.btn--danger:hover {
+  background: #b91c1c !important;
+  border-color: #b91c1c !important;
+  color: $color-white !important;
+}

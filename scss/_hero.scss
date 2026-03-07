@@ -1,0 +1,67 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.hero {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__img {
+  object-fit: cover;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(45, 36, 32, 0.75) 0%,
+    rgba(45, 36, 32, 0.2) 45%,
+    transparent 70%
+  );
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: $color-white;
+  padding: $spacing-xl;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+}
+
+.hero__title {
+  font-size: $font-size-4xl;
+  margin-bottom: $spacing-sm;
+  color: $color-white;
+  letter-spacing: 0.04em;
+  font-weight: $font-weight-normal;
+
+  @include respond-to(md) {
+    font-size: $font-size-5xl;
+  }
+}
+
+.hero__subtitle {
+  font-family: $font-display;
+  font-size: $font-size-2xl;
+  margin-bottom: $spacing-xl;
+  color: $color-accent-light;
+  opacity: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: $font-weight-normal;
+}
+
+.hero__cta {
+  margin-top: $spacing-lg;
+}

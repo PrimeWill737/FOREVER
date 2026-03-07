@@ -1,0 +1,5 @@
+// Main stylesheet - forwards all SCSS partials
+@use '../scss' as *;
+
+// Additional page-specific or layout styles can go here
+// Variables and mixins are available via the namespace (e.g. $color-bg from variables)
