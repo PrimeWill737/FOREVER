@@ -198,6 +198,7 @@ on conflict (id) do nothing;
 drop policy if exists "gallery_public_read" on storage.objects;
 create policy "gallery_public_read" on storage.objects for select
   using (bucket_id = 'gallery');
+  
 
 -- Allow authenticated upload/update/delete
 drop policy if exists "gallery_authenticated_write" on storage.objects;
