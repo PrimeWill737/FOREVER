@@ -7,5 +7,6 @@
 @use './footer';
 @use './rsvp';
 @use './admin';
+@use './pwa';
 @forward './variables';
 @forward './mixins';

@@ -1,0 +1,85 @@
+@use './variables' as *;
+
+.pwa-badge {
+  position: fixed;
+  bottom: $spacing-lg;
+  left: $spacing-lg;
+  right: $spacing-lg;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md $spacing-lg;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: pwa-badge-in 0.25s ease-out;
+
+  @media (min-width: 400px) {
+    left: auto;
+    max-width: 320px;
+  }
+}
+
+@keyframes pwa-badge-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pwa-badge--install {
+  background: $color-bg-dark;
+  color: $color-white;
+}
+
+.pwa-badge--update {
+  background: $color-text;
+  color: $color-white;
+}
+
+.pwa-badge__text {
+  flex: 1;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}
+
+.pwa-badge__btn {
+  padding: $spacing-xs $spacing-md;
+  background: $color-accent;
+  border: none;
+  border-radius: 6px;
+  color: $color-white;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.pwa-badge__dismiss {
+  padding: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  color: inherit;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+}

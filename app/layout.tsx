@@ -1,9 +1,20 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import '@/styles/main.scss';
+import { PwaBadge } from '@/components/PwaBadge';
 
 export const metadata: Metadata = {
   title: 'William & Esther | Forever',
   description: 'Our story, our gallery, our forever.',
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Forever',
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#2d2420',
 };
 
 export default function RootLayout({
@@ -14,6 +25,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+        <link rel="apple-touch-icon" href="/icons/icon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -21,7 +34,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <PwaBadge />
+      </body>
     </html>
   );
 }
