@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import '@/styles/main.scss';
 import { PwaBadge } from '@/components/PwaBadge';
+import { PublicShell } from '@/components/PublicShell';
+import { createClient } from '@/lib/supabase/server';
+import { getFooterLinks } from '@/lib/supabase/queries';
 
 export const metadata: Metadata = {
   title: 'William & Esther | Forever',
@@ -12,11 +15,14 @@ export const viewport: Viewport = {
   themeColor: '#2d2420',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = await createClient();
+  const footerLinks = await getFooterLinks(supabase);
+
   return (
     <html lang="en">
       <head>
@@ -31,7 +37,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {children}
+        <PublicShell footerLinks={footerLinks}>
+          {children}
+        </PublicShell>
         <PwaBadge />
       </body>
     </html>

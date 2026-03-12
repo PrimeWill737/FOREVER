@@ -3,6 +3,38 @@
 import { getAdminSupabase } from '@/app/actions/admin-auth';
 import type { WhoAreWeProfile } from '@/lib/supabase/types';
 
+function getPublicUrl(path: string): string {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!url) return '';
+  return `${url}/storage/v1/object/public/gallery/${path}`;
+}
+
+/** Upload an image for Who Are We (William or Esther). Returns the public URL or { error }. */
+export async function uploadWhoAreWeImage(
+  slug: 'william' | 'esther',
+  formData: FormData
+): Promise<{ url: string } | { error: string }> {
+  try {
+    const supabase = await getAdminSupabase();
+    const file = formData.get('file') as File | null;
+    if (!file || !(file instanceof File)) return { error: 'No file selected' };
+    if (!file.type.startsWith('image/')) return { error: 'Please select an image file' };
+
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
+    const path = `who-are-we/${slug}-${Date.now()}.${ext}`;
+
+    const buf = await file.arrayBuffer();
+    const { error: uploadError } = await supabase.storage
+      .from('gallery')
+      .upload(path, buf, { contentType: file.type || 'image/jpeg', upsert: true });
+
+    if (uploadError) return { error: uploadError.message };
+    return { url: getPublicUrl(path) };
+  } catch (err) {
+    return { error: err instanceof Error ? err.message : 'Upload failed' };
+  }
+}
+
 export async function saveWhoAreWeProfile(
   slug: 'william' | 'esther',
   payload: { name: string; bio: string; image_url?: string }
