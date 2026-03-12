@@ -6,11 +6,6 @@ export const metadata: Metadata = {
   title: 'William & Esther | Forever',
   description: 'Our story, our gallery, our forever.',
   manifest: '/manifest.webmanifest',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'Forever',
-  },
 };
 
 export const viewport: Viewport = {
@@ -25,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="mobile-web-app-capable" content="yes" />
         <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
         <link rel="apple-touch-icon" href="/icons/icon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -15,14 +15,14 @@ const MIMES: Record<string, string> = {
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: Promise<{ path: string[] }> }
+  { params }: { params: Promise<{ slug: string[] }> }
 ) {
-  const { path: pathSegments } = await params;
-  if (!pathSegments?.length) {
+  const { slug } = await params;
+  if (!slug?.length) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 
-  const safePath = path.join(IMG_DIR, ...pathSegments);
+  const safePath = path.join(IMG_DIR, ...slug);
   const realDir = path.resolve(IMG_DIR);
   const resolved = path.resolve(safePath);
   const relative = path.relative(realDir, resolved);
