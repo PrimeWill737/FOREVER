@@ -2,17 +2,29 @@
 @use './mixins' as *;
 
 .footer {
-  background: $color-bg-soft;
+  background: $color-bg-dark;
   border-top: 1px solid $color-border;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(200px, 50%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $color-accent, transparent);
+  }
 }
 
 .footer__top {
-  padding: $spacing-2xl 0;
+  padding: $spacing-3xl 0;
 }
 
 .footer__grid {
   display: grid;
-  gap: $spacing-xl;
+  gap: $spacing-2xl;
   grid-template-columns: 1fr;
 
   @include respond-to(md) {
@@ -31,12 +43,13 @@
 }
 
 .footer__heading {
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-  letter-spacing: 0.1em;
+  font-family: $font-mono;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: $spacing-md;
-  color: $color-bg-dark;
+  color: $color-accent;
 }
 
 .footer__list {
@@ -47,20 +60,30 @@
   li {
     margin-bottom: $spacing-sm;
 
-    a:hover {
-      color: $color-accent;
+    a {
+      color: $color-text-muted;
+      font-size: $font-size-sm;
+      transition: color $transition-fast, transform $transition-fast;
+      display: inline-block;
+
+      &:hover {
+        color: $color-accent-light;
+        transform: translateX(4px);
+      }
     }
   }
 }
 
 .footer__bottom {
-  padding: $spacing-md 0;
+  padding: $spacing-lg 0;
   border-top: 1px solid $color-border;
 }
 
 .footer__copy {
   margin: 0;
-  font-size: $font-size-sm;
+  font-family: $font-mono;
+  font-size: $font-size-xs;
+  letter-spacing: 0.08em;
   color: $color-text-muted;
   text-align: center;
   display: flex;
@@ -82,6 +105,6 @@
 }
 
 .footer__heart {
-  width: 1rem;
-  height: 1rem;
+  width: 0.875rem;
+  height: 0.875rem;
 }

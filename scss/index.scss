@@ -1,6 +1,7 @@
 // Sub-styling modules: load base & components (emit CSS), re-export variables & mixins
 @use './base';
 @use './components';
+@use './cinematic';
 @use './header';
 @use './hero';
 @use './gallery';

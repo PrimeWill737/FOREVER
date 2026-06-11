@@ -19,9 +19,12 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="admin-layout">
+    <div className="admin-layout admin-layout--cinematic">
       <AdminSidebar />
-      <div className="admin-main">{children}</div>
+      <div className="admin-main">
+        <div className="admin-main__grain" aria-hidden />
+        {children}
+      </div>
     </div>
   );
 }

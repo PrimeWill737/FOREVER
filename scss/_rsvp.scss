@@ -10,20 +10,29 @@
 .rsvp-date {
   text-align: center;
   font-family: $font-display;
-  font-size: $font-size-lg;
+  font-size: $font-size-xl;
+  font-style: italic;
   margin-bottom: $spacing-2xl;
-  color: $color-text-muted;
+  color: $color-accent-light;
+  letter-spacing: 0.06em;
 }
 
 .rsvp-form {
   display: flex;
   flex-direction: column;
   gap: $spacing-lg;
+  padding: $spacing-xl;
+  background: $color-bg-elevated;
+  border: 1px solid $color-border;
 
   label {
     display: block;
-    font-size: $font-size-sm;
+    font-family: $font-mono;
+    font-size: $font-size-xs;
     font-weight: $font-weight-medium;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-text-muted;
     margin-bottom: $spacing-xs;
   }
 
@@ -33,12 +42,20 @@
     width: 100%;
     padding: $spacing-sm $spacing-md;
     border: 1px solid $color-border;
-    border-radius: 4px;
+    border-radius: 0;
     font: inherit;
+    background: $color-bg-soft;
+    color: $color-text;
+    transition: border-color $transition-fast, box-shadow $transition-fast;
 
     &:focus {
       outline: none;
       border-color: $color-accent;
+      box-shadow: 0 0 0 3px $color-glow;
+    }
+
+    &::placeholder {
+      color: $color-text-muted;
     }
   }
 
@@ -63,22 +80,29 @@
       gap: $spacing-sm;
       margin-bottom: 0;
       cursor: pointer;
+      text-transform: none;
+      letter-spacing: normal;
+      font-family: $font-body;
+      font-size: $font-size-sm;
+      color: $color-text;
     }
   }
 
   &__message {
     padding: $spacing-md;
-    border-radius: 4px;
     margin: 0;
+    border: 1px solid transparent;
 
     &--success {
-      background: #c5d9c8;
-      color: #1e4620;
+      background: rgba(76, 120, 90, 0.15);
+      border-color: rgba(76, 120, 90, 0.35);
+      color: #a8d4b0;
     }
 
     &--error {
-      background: #e8d0d0;
-      color: #5c2424;
+      background: rgba(140, 70, 70, 0.15);
+      border-color: rgba(140, 70, 70, 0.35);
+      color: #e8b0b0;
     }
   }
 }
@@ -88,7 +112,7 @@
 }
 
 .story-content {
-  max-width: 48rem;
+  max-width: 42rem;
   margin: 0 auto;
 
   &--preview {
@@ -103,15 +127,25 @@
 }
 
 .story-section {
-  margin-bottom: $spacing-2xl;
+  margin-bottom: $spacing-3xl;
+  padding-bottom: $spacing-2xl;
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   &__title {
     font-size: $font-size-2xl;
-    margin-bottom: $spacing-md;
+    margin-bottom: $spacing-lg;
+    color: $color-accent-light;
   }
 
   &__body {
-    line-height: 1.8;
+    line-height: 1.85;
+    color: $color-text-muted;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-normal;
 
     p {
       margin-bottom: $spacing-md;
@@ -122,42 +156,60 @@
 .story-placeholder {
   text-align: center;
   color: $color-text-muted;
+  font-family: $font-mono;
+  font-size: $font-size-sm;
 }
 
 .cta-block {
   text-align: center;
-  padding: $spacing-3xl $spacing-lg;
-  background: linear-gradient(160deg, $color-bg-dark 0%, lighten($color-bg-dark, 8%) 100%);
+  padding: $spacing-4xl $spacing-lg;
+  background: $color-bg-dark;
+  position: relative;
+  overflow: hidden;
 
   .container {
     @include container;
+    position: relative;
+    z-index: 1;
   }
 }
 
+.cta-block__aurora {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(196, 162, 101, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 30%, rgba(196, 162, 101, 0.06) 0%, transparent 55%);
+  pointer-events: none;
+  animation: cta-aurora 12s $ease-cinematic infinite alternate;
+}
+
+@keyframes cta-aurora {
+  from { opacity: 0.6; transform: scale(1); }
+  to { opacity: 1; transform: scale(1.05); }
+}
+
 .cta-block__title {
-  font-size: $font-size-3xl;
+  font-size: clamp($font-size-3xl, 5vw, $font-size-5xl);
   margin-bottom: $spacing-md;
   color: $color-white;
   font-weight: $font-weight-normal;
-
-  @include respond-to(md) {
-    font-size: $font-size-4xl;
-  }
 }
 
 .cta-block__date,
 .cta-block__venue {
-  font-size: $font-size-lg;
+  font-family: $font-display;
+  font-size: $font-size-xl;
+  font-style: italic;
   margin-bottom: $spacing-sm;
   color: $color-accent-light;
-  opacity: 0.98;
+  letter-spacing: 0.04em;
 }
 
 .cta-block .btn {
   margin-top: $spacing-xl;
 }
 
-// ========== Who Are We section ==========
 .section--who {
   background: $color-bg;
 }
@@ -176,20 +228,42 @@
 }
 
 .who-card {
-  background: $color-surface;
-  border-radius: 8px;
+  background: $color-bg-elevated;
   border: 1px solid $color-border;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(45, 36, 32, 0.06);
+  transition: border-color $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    border-color: rgba(196, 162, 101, 0.35);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  }
 
   &__img-wrap {
     position: relative;
-    aspect-ratio: 4 / 3;
-    background: $color-border;
+    aspect-ratio: 4 / 5;
+    background: $color-bg-soft;
+    overflow: hidden;
   }
 
   &__img {
     object-fit: cover;
+    transition: transform 1.4s $ease-out-expo;
+  }
+
+  &:hover &__img {
+    transform: scale(1.04);
+  }
+
+  &__img-shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      transparent 40%,
+      transparent 100%
+    );
+    pointer-events: none;
   }
 
   &__body {
@@ -205,7 +279,7 @@
 
   &__bio {
     font-size: $font-size-base;
-    line-height: 1.7;
+    line-height: 1.75;
     color: $color-text-muted;
 
     p {

@@ -5,16 +5,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ADMIN_NAV } from '@/lib/admin-nav';
 
-function HeartIcon({ className }: { className?: string }) {
+function MenuIcon() {
   return (
-    <svg
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden
-    >
-      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -25,12 +19,10 @@ export function AdminSidebar() {
 
   const closeSidebar = () => setSidebarOpen(false);
 
-  // Close sidebar on route change (mobile)
   useEffect(() => {
     closeSidebar();
   }, [pathname]);
 
-  // Close sidebar when resizing to desktop
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 768px)');
     const handler = () => {
@@ -40,7 +32,6 @@ export function AdminSidebar() {
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Close sidebar on Escape (mobile)
   useEffect(() => {
     if (!sidebarOpen) return;
     const onKey = (e: KeyboardEvent) => {
@@ -61,9 +52,12 @@ export function AdminSidebar() {
           aria-controls="admin-sidebar"
           aria-label={sidebarOpen ? 'Close menu' : 'Open menu'}
         >
-          <HeartIcon className="admin-header__heart" />
+          <MenuIcon />
         </button>
-        <span className="admin-header__title">Admin</span>
+        <span className="admin-header__title">
+          <span className="admin-header__mark" aria-hidden />
+          Admin
+        </span>
       </header>
 
       <div
@@ -79,7 +73,14 @@ export function AdminSidebar() {
         className={`admin-sidebar ${sidebarOpen ? 'admin-sidebar--open' : ''}`}
         aria-label="Admin navigation"
       >
-        <div className="admin-sidebar__brand">William & Esther · Admin</div>
+        <div className="admin-sidebar__brand">
+          <span className="admin-sidebar__mark" aria-hidden />
+          <div>
+            <span className="admin-sidebar__brand-name">William & Esther</span>
+            <span className="admin-sidebar__brand-sub">Admin Studio</span>
+          </div>
+        </div>
+
         <nav className="admin-sidebar__nav">
           {ADMIN_NAV.map(({ href, label, exact }) => {
             const active = exact === true ? pathname === href : pathname?.startsWith(href);
@@ -95,8 +96,15 @@ export function AdminSidebar() {
             );
           })}
         </nav>
+
         <div className="admin-sidebar__footer">
-          <Link href="/" target="_blank" rel="noopener noreferrer" className="admin-sidebar__link" onClick={closeSidebar}>
+          <Link
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="admin-sidebar__link admin-sidebar__link--out"
+            onClick={closeSidebar}
+          >
             View site →
           </Link>
         </div>

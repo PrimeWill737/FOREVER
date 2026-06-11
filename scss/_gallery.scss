@@ -23,24 +23,79 @@
     }
   }
 
+  &--mosaic {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-sm;
+
+    @include respond-to(md) {
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 180px;
+      gap: $spacing-md;
+    }
+
+    @include respond-to(lg) {
+      grid-auto-rows: 220px;
+    }
+  }
+
+  &__cell {
+    &--1, &--4, &--7 {
+      @include respond-to(md) {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+    }
+  }
+
   &__item {
     position: relative;
     aspect-ratio: 1;
     overflow: hidden;
-    border-radius: 6px;
-    box-shadow: 0 2px 12px rgba(45, 36, 32, 0.12);
+    display: block;
     cursor: pointer;
-    transition: transform $transition-base, box-shadow $transition-base;
+    border: 1px solid $color-border;
+    transition: border-color $transition-base, box-shadow $transition-base;
+
+    .gallery-grid--mosaic & {
+      height: 100%;
+      aspect-ratio: auto;
+    }
+
+    img {
+      object-fit: cover;
+      transition: transform 1.2s $ease-out-expo, filter $transition-base;
+    }
 
     &:hover {
-      transform: scale(1.02);
-      box-shadow: 0 8px 24px rgba(45, 36, 32, 0.2);
+      border-color: rgba(196, 162, 101, 0.45);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+
+      img {
+        transform: scale(1.06);
+      }
+
+      .gallery-grid__overlay {
+        opacity: 1;
+      }
     }
 
     &:focus-visible {
-      outline: 2px solid $color-accent;
-      outline-offset: 2px;
+      outline: 1px solid $color-accent;
+      outline-offset: 3px;
     }
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 40%,
+      rgba(8, 8, 7, 0.7) 100%
+    );
+    opacity: 0;
+    transition: opacity $transition-base;
+    pointer-events: none;
   }
 
   &__image-wrap {
@@ -52,7 +107,6 @@
     }
   }
 
-  // Caption badge: first 50 words + optional "Read more"
   &__badge {
     position: absolute;
     bottom: $spacing-sm;
@@ -60,9 +114,9 @@
     right: $spacing-sm;
     max-height: 40%;
     padding: $spacing-sm $spacing-md;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 8px;
-    color: $color-white;
+    background: rgba(8, 8, 7, 0.85);
+    border: 1px solid $color-border;
+    color: $color-text;
     font-size: $font-size-xs;
     line-height: 1.4;
     overflow: hidden;
@@ -70,7 +124,7 @@
     flex-direction: column;
     gap: $spacing-xs;
     cursor: default;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
   }
 
   &__badge-text {
@@ -83,21 +137,19 @@
   &__read-more {
     align-self: flex-start;
     padding: 2px $spacing-sm;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    border-radius: 4px;
-    color: $color-white;
+    background: rgba(196, 162, 101, 0.15);
+    border: 1px solid $color-border;
+    color: $color-accent-light;
     font-size: 0.7rem;
     font-weight: $font-weight-semibold;
     cursor: pointer;
     transition: background $transition-fast;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.35);
+      background: rgba(196, 162, 101, 0.25);
     }
   }
 
-  // Full caption overlay over entire image
   &__caption-overlay {
     position: absolute;
     inset: 0;
@@ -106,17 +158,19 @@
     align-items: center;
     justify-content: center;
     padding: $spacing-lg;
-    background: rgba(0, 0, 0, 0.88);
+    background: rgba(8, 8, 7, 0.92);
     cursor: pointer;
-    animation: gallery-caption-in 0.2s ease-out;
+    animation: gallery-caption-in 0.35s $ease-out-expo;
   }
 
   @keyframes gallery-caption-in {
     from {
       opacity: 0;
+      backdrop-filter: blur(0);
     }
     to {
       opacity: 1;
+      backdrop-filter: blur(8px);
     }
   }
 
@@ -126,9 +180,9 @@
     max-height: 100%;
     overflow: auto;
     padding: $spacing-xl $spacing-lg $spacing-lg;
-    background: $color-bg-dark;
-    border-radius: 8px;
-    color: $color-white;
+    background: $color-bg-elevated;
+    border: 1px solid $color-border;
+    color: $color-text;
     cursor: default;
     text-align: left;
   }
@@ -142,17 +196,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    border-radius: 50%;
-    color: $color-white;
+    background: rgba(196, 162, 101, 0.1);
+    border: 1px solid $color-border;
+    color: $color-text;
     font-size: 1.25rem;
     line-height: 1;
     cursor: pointer;
     transition: background $transition-fast;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(196, 162, 101, 0.2);
     }
   }
 
@@ -166,7 +219,6 @@
   }
 }
 
-// Fullscreen lightbox
 .gallery-lightbox {
   position: fixed;
   inset: 0;
@@ -175,21 +227,18 @@
   align-items: center;
   justify-content: center;
   padding: $spacing-lg;
-  animation: gallery-lightbox-in 0.2s ease-out;
+  animation: gallery-lightbox-in 0.4s $ease-out-expo;
 
   @keyframes gallery-lightbox-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   &__backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.92);
+    background: rgba(8, 8, 7, 0.94);
+    backdrop-filter: blur(12px);
     cursor: pointer;
   }
 
@@ -213,17 +262,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    border-radius: 50%;
-    color: $color-white;
+    background: rgba(196, 162, 101, 0.1);
+    border: 1px solid $color-border;
+    color: $color-text;
     font-size: 1.5rem;
     line-height: 1;
     cursor: pointer;
     transition: background $transition-fast, color $transition-fast;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(196, 162, 101, 0.2);
+      color: $color-accent-light;
     }
   }
 
@@ -241,8 +290,8 @@
     width: auto;
     height: auto;
     object-fit: contain;
-    border-radius: 6px;
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+    border: 1px solid $color-border;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
   }
 
   &__actions {
@@ -255,7 +304,7 @@
   }
 
   &__caption {
-    color: $color-white;
+    color: $color-text-muted;
     font-size: $font-size-sm;
     text-align: center;
     margin: 0;
@@ -273,16 +322,15 @@
   background: $color-bg-warm;
 }
 
-.gallery-preview .section__title {
-  color: $color-text;
-}
-
 .gallery-preview__more {
   text-align: center;
-  margin-top: $spacing-2xl;
+  margin-top: $spacing-3xl;
 }
 
 .gallery-empty {
   text-align: center;
   color: $color-text-muted;
+  font-family: $font-mono;
+  font-size: $font-size-sm;
+  letter-spacing: 0.08em;
 }

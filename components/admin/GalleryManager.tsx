@@ -80,7 +80,7 @@ export function GalleryManager({ initialGallery }: GalleryManagerProps) {
       <div className="gallery-manager__toolbar">
         <form ref={formRef} action={formAction} encType="multipart/form-data">
           <input type="hidden" name="sortOrder" value={gallery.length} />
-          <label className="btn btn--primary">
+          <label className="btn btn--gold">
             <UploadTrigger formRef={formRef} />
           </label>
         </form>

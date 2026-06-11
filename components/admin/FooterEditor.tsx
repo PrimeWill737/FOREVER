@@ -73,7 +73,7 @@ export function FooterEditor({ initialLinks }: FooterEditorProps) {
         Add link
       </button>
       {error && <p className="admin-form__error" role="alert">{error}</p>}
-      <button type="submit" className="btn btn--primary">
+      <button type="submit" className="btn btn--gold">
         {saved ? 'Saved' : 'Save'}
       </button>
     </form>

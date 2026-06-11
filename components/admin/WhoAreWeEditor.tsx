@@ -76,14 +76,14 @@ export function WhoAreWeEditor({ profiles }: WhoAreWeEditorProps) {
       <div className="who-are-we-admin__tabs">
         <button
           type="button"
-          className={`btn ${active === 'william' ? 'btn--primary btn--active' : 'btn--secondary'}`}
+          className={`btn ${active === 'william' ? 'btn--gold btn--active' : 'btn--outline'}`}
           onClick={() => switchPerson('william')}
         >
           William
         </button>
         <button
           type="button"
-          className={`btn ${active === 'esther' ? 'btn--primary btn--active' : 'btn--secondary'}`}
+          className={`btn ${active === 'esther' ? 'btn--gold btn--active' : 'btn--outline'}`}
           onClick={() => switchPerson('esther')}
         >
           Esther
@@ -156,7 +156,7 @@ export function WhoAreWeEditor({ profiles }: WhoAreWeEditorProps) {
           {uploadError && <p className="admin-form__error" role="alert">{uploadError}</p>}
         </div>
         {error && <p className="admin-form__error" role="alert">{error}</p>}
-        <button type="submit" className="btn btn--primary">
+        <button type="submit" className="btn btn--gold">
           {saved ? 'Saved' : `Save ${active === 'william' ? 'William' : 'Esther'}`}
         </button>
       </form>

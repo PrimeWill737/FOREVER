@@ -61,7 +61,7 @@ export function AdminLoginForm() {
           autoComplete="current-password"
         />
       </div>
-      <button type="submit" className="btn btn--primary" disabled={loading}>
+      <button type="submit" className="btn btn--gold admin-login-form__submit" disabled={loading}>
         {loading ? 'Signing in...' : 'Sign in'}
       </button>
     </form>

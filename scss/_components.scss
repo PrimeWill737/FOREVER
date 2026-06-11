@@ -6,44 +6,90 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: $spacing-sm $spacing-lg;
-  font-size: $font-size-sm;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-xl;
+  font-size: $font-size-xs;
   font-weight: $font-weight-medium;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  transition: background-color $transition-base, color $transition-base, transform $transition-fast;
-  border-radius: 2px;
+  transition: background-color $transition-base, color $transition-base,
+    transform $transition-fast, border-color $transition-base, box-shadow $transition-base;
+  border-radius: 0;
+  border: 1px solid transparent;
+
+  &:active {
+    transform: scale(0.98);
+  }
 
   &--primary {
-    background-color: $color-bg-dark;
-    color: $color-white;
+    background-color: $color-accent;
+    color: $color-bg-dark;
 
     &:hover {
-      background-color: lighten($color-bg-dark, 10%);
-      color: $color-accent-soft;
+      background-color: $color-accent-light;
+      box-shadow: 0 0 24px $color-glow;
     }
   }
 
   &--secondary {
-    background-color: $color-surface;
-    color: $color-bg-dark;
-    border: 2px solid $color-accent-soft;
+    background-color: transparent;
+    color: $color-text;
+    border-color: $color-border;
 
     &:hover {
-      background-color: $color-bg-dark;
+      border-color: $color-accent;
       color: $color-accent-light;
-      border-color: $color-bg-dark;
+    }
+  }
+
+  &--outline {
+    background: transparent;
+    color: $color-accent-light;
+    border: 1px solid $color-accent-soft;
+
+    &:hover {
+      background: rgba(196, 162, 101, 0.08);
+      border-color: $color-accent;
+      box-shadow: 0 0 32px $color-glow;
+    }
+  }
+
+  &--ghost {
+    background: rgba(250, 247, 242, 0.06);
+    color: $color-white;
+    border: 1px solid rgba(250, 247, 242, 0.2);
+    backdrop-filter: blur(8px);
+
+    &:hover {
+      background: rgba(196, 162, 101, 0.15);
+      border-color: $color-accent-soft;
+      color: $color-accent-light;
+    }
+  }
+
+  &--gold {
+    background: linear-gradient(135deg, $color-accent 0%, darken($color-accent, 8%) 100%);
+    color: $color-bg-dark;
+    border: none;
+
+    &:hover {
+      box-shadow: 0 4px 28px rgba(196, 162, 101, 0.35);
+      color: $color-bg-dark;
     }
   }
 
   &--accent {
     background-color: $color-accent;
-    color: $color-white;
+    color: $color-bg-dark;
 
     &:hover {
-      background-color: darken($color-accent, 8%);
-      color: $color-white;
+      background-color: $color-accent-light;
     }
+  }
+
+  &--sm {
+    padding: $spacing-xs $spacing-md;
+    font-size: 0.7rem;
   }
 }
 
@@ -56,7 +102,7 @@
   padding: $spacing-3xl 0;
 
   @include respond-to(lg) {
-    padding: ($spacing-3xl * 1.5) 0;
+    padding: $spacing-4xl 0;
   }
 
   &--dark {
@@ -66,12 +112,10 @@
 }
 
 .section__title {
-  font-size: $font-size-3xl;
+  font-size: clamp($font-size-3xl, 5vw, $font-size-5xl);
   text-align: center;
-  margin-bottom: $spacing-2xl;
+  margin-bottom: 0;
   color: $color-text;
-
-  @include respond-to(md) {
-    font-size: $font-size-4xl;
-  }
+  font-weight: $font-weight-normal;
+  letter-spacing: 0.02em;
 }

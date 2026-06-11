@@ -1,21 +1,24 @@
-// Colors - warm, romantic couple site palette (no pure white backgrounds)
-$color-bg: #f0e9e0;
-$color-bg-warm: #e8dfd4;
-$color-bg-soft: #e2d9ce;
-$color-bg-dark: #2d2420;
-$color-text: #2d2420;
-$color-text-muted: #5c5048;
-$color-accent: #a67c52;
-$color-accent-light: #c9a882;
-$color-accent-soft: #e0d2c4;
-$color-surface: #ebe4db;
-$color-white: #ffffff;
-$color-border: #ddd4c9;
-$color-highlight: #8b6914;
+// Cinematic palette — deep, warm, editorial (not generic AI gradients)
+$color-bg: #0c0b0a;
+$color-bg-warm: #12100e;
+$color-bg-soft: #1a1714;
+$color-bg-elevated: #221e1a;
+$color-bg-dark: #080807;
+$color-text: #f2ebe3;
+$color-text-muted: #9a9088;
+$color-accent: #c4a265;
+$color-accent-light: #e2c992;
+$color-accent-soft: rgba(196, 162, 101, 0.35);
+$color-surface: #1e1b18;
+$color-white: #faf7f2;
+$color-border: rgba(196, 162, 101, 0.18);
+$color-highlight: #d4af6a;
+$color-glow: rgba(196, 162, 101, 0.12);
 
 // Typography
-$font-display: 'Cormorant Garamond', Georgia, serif;
-$font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-display: 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+$font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
 $font-size-xs: 0.75rem;
 $font-size-sm: 0.875rem;
@@ -24,8 +27,9 @@ $font-size-lg: 1.125rem;
 $font-size-xl: 1.25rem;
 $font-size-2xl: 1.5rem;
 $font-size-3xl: 2rem;
-$font-size-4xl: 2.5rem;
-$font-size-5xl: 3rem;
+$font-size-4xl: 2.75rem;
+$font-size-5xl: 4rem;
+$font-size-6xl: 5.5rem;
 
 $font-weight-normal: 400;
 $font-weight-medium: 500;
@@ -39,7 +43,8 @@ $spacing-md: 1rem;
 $spacing-lg: 1.5rem;
 $spacing-xl: 2rem;
 $spacing-2xl: 3rem;
-$spacing-3xl: 4rem;
+$spacing-3xl: 5rem;
+$spacing-4xl: 7rem;
 
 // Breakpoints
 $breakpoint-sm: 640px;
@@ -47,7 +52,9 @@ $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;
 $breakpoint-xl: 1280px;
 
-// Transitions
-$transition-fast: 0.15s ease;
-$transition-base: 0.25s ease;
-$transition-slow: 0.4s ease;
+// Transitions — cinematic easing
+$ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+$ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+$transition-fast: 0.2s $ease-cinematic;
+$transition-base: 0.45s $ease-cinematic;
+$transition-slow: 0.9s $ease-out-expo;

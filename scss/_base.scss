@@ -15,10 +15,16 @@ body {
   margin: 0;
   font-family: $font-body;
   font-size: $font-size-base;
-  line-height: 1.6;
+  line-height: 1.65;
   color: $color-text;
   background-color: $color-bg;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(196, 162, 101, 0.35);
+  color: $color-white;
 }
 
 img {
@@ -40,5 +46,5 @@ button {
 h1, h2, h3, h4, h5, h6 {
   @include heading-display;
   margin: 0 0 $spacing-md;
-  line-height: 1.2;
+  line-height: 1.15;
 }
