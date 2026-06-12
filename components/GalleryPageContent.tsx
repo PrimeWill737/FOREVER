@@ -18,9 +18,7 @@ export function GalleryPageContent({ gallery }: GalleryPageContentProps) {
             <h1 className="section__title">Gallery</h1>
           </ScrollReveal>
 
-          <ScrollReveal variant="fade-up" delay={150}>
-            <GalleryWithLightbox gallery={gallery} />
-          </ScrollReveal>
+          <GalleryWithLightbox gallery={gallery} />
         </div>
       </section>
     </main>

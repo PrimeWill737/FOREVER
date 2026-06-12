@@ -4,6 +4,8 @@ import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import type { GalleryImage } from '@/lib/supabase/types';
 import { imageUnoptimized } from '@/lib/image';
+import { getGalleryTileSize } from '@/lib/gallery-layout';
+import { ScrollReveal } from '@/components/ScrollReveal';
 
 const CAPTION_PREVIEW_WORDS = 50;
 
@@ -83,27 +85,33 @@ export function GalleryWithLightbox({ gallery }: GalleryWithLightboxProps) {
 
   return (
     <>
-      <div className="gallery-grid gallery-grid--full">
-        {gallery.map((img) => {
+      <div className="gallery-grid gallery-grid--mosaic">
+        {gallery.map((img, index) => {
           const src = img.url || '/img/IMG_2527.JPG';
           const caption = img.caption?.trim() || '';
           const { preview, rest, hasMore } = getFirstNWords(caption, CAPTION_PREVIEW_WORDS);
           const showBadge = caption.length > 0;
           const isCaptionExpanded = expandedCaptionId === img.id;
+          const size = getGalleryTileSize(index);
 
           return (
-            <div
+            <ScrollReveal
               key={img.id}
-              className="gallery-grid__item"
-              role="button"
-              tabIndex={0}
-              onClick={() => {
-                if (isCaptionExpanded) setExpandedCaptionId(null);
-                else setSelected(img);
-              }}
-              onKeyDown={(e) => handleKeyDown(e, img)}
-              aria-label={img.caption || 'View image'}
+              variant="scale"
+              delay={(index % 4) * 70}
+              className={`gallery-grid__cell gallery-grid__cell--${size}`}
             >
+              <div
+                className={`gallery-grid__item gallery-grid__item--${size}`}
+                role="button"
+                tabIndex={0}
+                onClick={() => {
+                  if (isCaptionExpanded) setExpandedCaptionId(null);
+                  else setSelected(img);
+                }}
+                onKeyDown={(e) => handleKeyDown(e, img)}
+                aria-label={img.caption || 'View image'}
+              >
               <div className="gallery-grid__image-wrap">
                 <Image
                   src={src}
@@ -175,7 +183,8 @@ export function GalleryWithLightbox({ gallery }: GalleryWithLightboxProps) {
                   </div>
                 </div>
               )}
-            </div>
+              </div>
+            </ScrollReveal>
           );
         })}
       </div>

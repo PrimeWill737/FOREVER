@@ -6,6 +6,7 @@ import { CinematicHero } from '@/components/CinematicHero';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import type { GalleryImage, OurStorySection, WhoAreWeProfile, WeddingCard } from '@/lib/supabase/types';
 import { imageUnoptimized } from '@/lib/image';
+import { getGalleryTileSize } from '@/lib/gallery-layout';
 
 interface HomeContentProps {
   heroSrc: string;
@@ -157,14 +158,16 @@ export function HomeContent({
           </ScrollReveal>
 
           <div className="gallery-grid gallery-grid--mosaic">
-            {galleryForGrid.slice(0, 12).map((img, i) => (
+            {galleryForGrid.slice(0, 12).map((img, i) => {
+              const size = getGalleryTileSize(i);
+              return (
               <ScrollReveal
                 key={img.id}
                 variant="scale"
                 delay={(i % 4) * 80}
-                className={`gallery-grid__cell gallery-grid__cell--${(i % 6) + 1}`}
+                className={`gallery-grid__cell gallery-grid__cell--${size}`}
               >
-                <Link href="/gallery" className="gallery-grid__item">
+                <Link href="/gallery" className={`gallery-grid__item gallery-grid__item--${size}`}>
                   <Image
                     src={img.url || fallbackImage}
                     alt={img.caption || 'Gallery'}
@@ -175,7 +178,8 @@ export function HomeContent({
                   <div className="gallery-grid__overlay" aria-hidden />
                 </Link>
               </ScrollReveal>
-            ))}
+            );
+            })}
           </div>
 
           {galleryForGrid.length > 0 && (

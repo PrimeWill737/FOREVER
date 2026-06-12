@@ -7,41 +7,33 @@
   gap: $spacing-sm;
 
   @include respond-to(md) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(140px, auto);
     gap: $spacing-md;
   }
 
-  &--full {
-    grid-template-columns: repeat(2, 1fr);
-
-    @include respond-to(md) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    @include respond-to(xl) {
-      grid-template-columns: repeat(4, 1fr);
-    }
+  @include respond-to(lg) {
+    grid-auto-rows: minmax(160px, auto);
   }
 
   &--mosaic {
-    grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-sm;
-
-    @include respond-to(md) {
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 180px;
-      gap: $spacing-md;
-    }
-
-    @include respond-to(lg) {
-      grid-auto-rows: 220px;
+    .gallery-grid__cell {
+      display: block;
+      width: 100%;
+      min-width: 0;
     }
   }
 
   &__cell {
-    &--1, &--4, &--7 {
+    min-width: 0;
+
+    &--wide,
+    &--feature {
+      grid-column: span 2;
+    }
+
+    &--feature {
       @include respond-to(md) {
-        grid-column: span 2;
         grid-row: span 2;
       }
     }
@@ -49,16 +41,33 @@
 
   &__item {
     position: relative;
-    aspect-ratio: 1;
+    width: 100%;
     overflow: hidden;
     display: block;
     cursor: pointer;
     border: 1px solid $color-border;
     transition: border-color $transition-base, box-shadow $transition-base;
 
-    .gallery-grid--mosaic & {
-      height: 100%;
-      aspect-ratio: auto;
+    &--square {
+      aspect-ratio: 1;
+    }
+
+    &--portrait {
+      aspect-ratio: 3 / 4;
+    }
+
+    &--wide {
+      aspect-ratio: 16 / 9;
+    }
+
+    &--feature {
+      aspect-ratio: 4 / 5;
+
+      @include respond-to(md) {
+        height: 100%;
+        min-height: 100%;
+        aspect-ratio: auto;
+      }
     }
 
     img {
@@ -125,6 +134,7 @@
     gap: $spacing-xs;
     cursor: default;
     backdrop-filter: blur(8px);
+    z-index: 1;
   }
 
   &__badge-text {
