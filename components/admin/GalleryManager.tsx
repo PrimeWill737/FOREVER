@@ -86,6 +86,9 @@ export function GalleryManager({ initialGallery }: GalleryManagerProps) {
         </form>
       </div>
       {error && <p className="gallery-manager__error">{error}</p>}
+      {gallery.length === 0 && (
+        <p className="gallery-manager__empty">No photos yet. Upload your first image above.</p>
+      )}
       <div className="gallery-manager__grid">
         {gallery.map((img) => (
           <div key={img.id} className="gallery-manager__item">

@@ -17,14 +17,12 @@ export function AdminPageShell({
 }: AdminPageShellProps) {
   return (
     <div className="admin-page">
-      <ScrollReveal variant="line" className="admin-page__header">
+      <ScrollReveal variant="line" className="admin-page__header" once>
         <span className="admin-page__label">{label}</span>
         <h1 className="admin-page__title">{title}</h1>
         {subtitle && <p className="admin-page__subtitle">{subtitle}</p>}
       </ScrollReveal>
-      <ScrollReveal variant="fade-up" delay={100} duration={700}>
-        {children}
-      </ScrollReveal>
+      <div className="admin-page__body">{children}</div>
     </div>
   );
 }

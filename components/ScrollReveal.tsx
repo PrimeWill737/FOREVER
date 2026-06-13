@@ -37,6 +37,18 @@ export function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
+    const markVisibleIfInView = () => {
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top < vh && rect.bottom > 0) {
+        setVisible(true);
+        hasBeenVisible.current = true;
+      }
+    };
+
+    markVisibleIfInView();
+    const raf = requestAnimationFrame(markVisibleIfInView);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         const dir = directionRef.current;
@@ -52,11 +64,14 @@ export function ScrollReveal({
           setVisible(false);
         }
       },
-      { threshold, rootMargin: '0px 0px -8% 0px' }
+      { threshold, rootMargin: '0px 0px 0px 0px' }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      cancelAnimationFrame(raf);
+      observer.disconnect();
+    };
   }, [directionRef, once, threshold]);
 
   const classes = [

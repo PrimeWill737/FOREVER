@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ScrollReveal } from '@/components/ScrollReveal';
 import { AdminLoginForm } from '@/components/admin/AdminLoginForm';
 
 export function AdminLoginContent() {
@@ -22,8 +21,7 @@ export function AdminLoginContent() {
       </div>
 
       <div className="admin-login__inner">
-        <ScrollReveal variant="fade-up" duration={800}>
-          <div className="admin-login__box">
+        <div className="admin-login__box">
             <Link href="/" className="admin-login__back">
               ← Back to site
             </Link>
@@ -33,7 +31,6 @@ export function AdminLoginContent() {
             <div className="admin-login__divider" aria-hidden />
             <AdminLoginForm />
           </div>
-        </ScrollReveal>
       </div>
     </div>
   );

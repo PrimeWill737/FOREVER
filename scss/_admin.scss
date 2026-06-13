@@ -305,6 +305,10 @@
     }
   }
 
+  &__body {
+    margin-top: $spacing-md;
+  }
+
   &__actions {
     display: flex;
     gap: $spacing-md;
@@ -821,6 +825,17 @@
     margin-bottom: $spacing-xl;
     padding-bottom: $spacing-lg;
     border-bottom: 1px solid $color-border;
+  }
+
+  &__empty {
+    margin: 0 0 $spacing-xl;
+    padding: $spacing-xl;
+    text-align: center;
+    font-family: $font-mono;
+    font-size: $font-size-sm;
+    letter-spacing: 0.06em;
+    color: $color-text-muted;
+    border: 1px dashed $color-border;
   }
 
   &__error {
